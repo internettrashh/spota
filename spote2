@@ -48,5 +48,6 @@ def api_get_top_tracks():
     top_tracks = get_top_tracks_formatted(access_token)
     return jsonify(top_tracks)
 
+    
 if __name__ == "__main__":
     app.run()
