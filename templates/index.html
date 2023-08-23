@@ -2,19 +2,60 @@
 <html>
 <head>
     <title>Top Spotify Tracks</title>
+    <style>
+        .track-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .album-image {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .track-details {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 </head>
 <body>
     <h1>Nischal's Top Tracks</h1>
     <div id="tracks"></div>
     <script>
-        fetch('/api/get_top_tracks')  // Fetch data from your API
+        fetch('/api/get_top_tracks')
             .then(response => response.json())
             .then(data => {
                 const tracksDiv = document.getElementById('tracks');
                 data.forEach(track => {
-                    const trackInfo = document.createElement('p');
-                    trackInfo.textContent = `${track.name} by ${track.artists.join(', ')} - Album: ${track.album}`;
-                    tracksDiv.appendChild(trackInfo);
+                    const trackContainer = document.createElement('div');
+                    trackContainer.className = 'track-container';
+
+                    if (track.album_image_url) {
+                        const albumImage = document.createElement('img');
+                        albumImage.className = 'album-image';
+                        albumImage.src = track.album_image_url;
+                        trackContainer.appendChild(albumImage);
+                    }
+
+                    const trackDetails = document.createElement('div');
+                    trackDetails.className = 'track-details';
+
+                    const trackName = document.createElement('p');
+                    trackName.textContent = track.name;
+                    trackDetails.appendChild(trackName);
+
+                    const artists = document.createElement('p');
+                    artists.textContent = `by ${track.artists.join(', ')}`;
+                    trackDetails.appendChild(artists);
+
+                    const album = document.createElement('p');
+                    album.textContent = `Album: ${track.album}`;
+                    trackDetails.appendChild(album);
+
+                    trackContainer.appendChild(trackDetails);
+
+                    tracksDiv.appendChild(trackContainer);
                 });
             })
             .catch(error => {
