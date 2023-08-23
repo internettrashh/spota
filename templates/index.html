@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Top Spotify Tracks</title>
+</head>
+<body>
+    <h1>Nischal's Top Tracks</h1>
+    <div id="tracks"></div>
+    <script>
+        fetch('/api/get_top_tracks')  // Fetch data from your API
+            .then(response => response.json())
+            .then(data => {
+                const tracksDiv = document.getElementById('tracks');
+                data.forEach(track => {
+                    const trackInfo = document.createElement('p');
+                    trackInfo.textContent = `${track.name} by ${track.artists.join(', ')} - Album: ${track.album}`;
+                    tracksDiv.appendChild(trackInfo);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    </script>
+</body>
+</html>
