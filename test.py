@@ -5,8 +5,8 @@ import spotipy
 
 load_dotenv()
 
-os.environ['CLIENT_ID'] = "09a400c1a0f74874b8b37c72980815b3"
-os.environ['CLIENT_SECRET'] = "4572945c233447d99ec85abd18b0912c"
+os.environ['CLIENT_ID'] = "<client id>"
+os.environ['CLIENT_SECRET'] = "<client secret>"
 
 clid = os.getenv("CLIENT_ID")
 clscrt = os.getenv("CLIENT_SECRET")  
